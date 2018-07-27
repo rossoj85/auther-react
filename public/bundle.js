@@ -29303,9 +29303,18 @@ var Login = function (_React$Component) {
     key: 'onLoginSubmit',
     value: function onLoginSubmit(event) {
       event.preventDefault();
+      console.log('BUTTON CLICKED');
       var message = this.props.message;
+      var _event$target = event.target,
+          email = _event$target.email,
+          password = _event$target.password;
 
-      console.log(message + ' isn\'t implemented yet');
+      var user = {
+        email: email.value,
+        password: password.value
+      };
+      console.log(email, password);
+      console.log(message + ' isn\'t implemented yet', user);
     }
   }]);
 

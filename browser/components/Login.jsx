@@ -33,7 +33,7 @@ class Login extends React.Component {
                   required
                 />
             </div>
-            <button type="submit" className="btn btn-block btn-primary">{message}</button>
+            <button type="submit"  className="btn btn-block btn-primary">{message}</button>
           </form>
         </div>
         <div className="or buffer">
@@ -58,8 +58,15 @@ class Login extends React.Component {
 
   onLoginSubmit(event) {
     event.preventDefault();
+    console.log('BUTTON CLICKED')
     const { message } = this.props;
-    console.log(`${message} isn't implemented yet`);
+    const {email, password} = event.target
+    const user = {
+      email: email.value,
+      password: password.value
+    }
+    console.log(email, password)
+    console.log(`${message} isn't implemented yet`, user);
   }
 }
 
