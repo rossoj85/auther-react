@@ -25113,9 +25113,15 @@ var _stories = __webpack_require__(8);
 
 var _stories2 = _interopRequireDefault(_stories);
 
+var _currentUser = __webpack_require__(158);
+
+var _currentUser2 = _interopRequireDefault(_currentUser);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _redux.combineReducers)({ users: _users2.default, stories: _stories2.default });
+exports.default = (0, _redux.combineReducers)({ users: _users2.default, stories: _stories2.default, currentUser: _currentUser2.default });
+
+//push test
 
 /***/ }),
 /* 103 */
@@ -29189,6 +29195,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
+var _currentUser = __webpack_require__(158);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29214,6 +29222,7 @@ var Login = function (_React$Component) {
   _createClass(Login, [{
     key: 'render',
     value: function render() {
+      console.log('reduxLogin', _currentUser.reduxLogin);
       var message = this.props.message;
 
       return _react2.default.createElement(
@@ -29313,6 +29322,8 @@ var Login = function (_React$Component) {
         email: email.value,
         password: password.value
       };
+
+      this.props.reactLogin(user);
       console.log(email, password);
       console.log(message + ' isn\'t implemented yet', user);
     }
@@ -29326,7 +29337,13 @@ var Login = function (_React$Component) {
 var mapState = function mapState() {
   return { message: 'Log in' };
 };
-var mapDispatch = null;
+
+// const mapDispatch = dispatch =>({
+//   reactLogin: user => dispatch(reduxLogin(user))
+// });
+var mapDispatch = {
+  reactLogin: _currentUser.reduxLogin
+};
 
 exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(Login);
 
@@ -47724,6 +47741,65 @@ var Footer = function Footer() {
 };
 
 exports.default = Footer;
+
+/***/ }),
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.reduxLogin = exports.set = undefined;
+exports.default = reducer;
+
+var _axios = __webpack_require__(45);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// CONSTANTS (connstants are put into an object and the are ysed to determine which type of action is to be performed on the thing)
+// when a set action occurs we change who the current user is 
+//the string jsjut explains what it does
+var SET = 'SET_CURRENT_USER';
+
+// ACTIONS 
+//take user credentials and return an object whos type is set and the user is equal to the current user
+var set = exports.set = function set(user) {
+    return { type: SET, user: user };
+};
+
+// REDUCER 
+function reducer() {
+    var currentUser = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments[1];
+
+    switch (action.type) {
+
+        case SET:
+            return action.user;
+
+        default:
+            return currentUser;
+    }
+}
+
+//THUNKED  ACTION CREATORS
+
+var logErr = console.error.bind(console);
+//returns a thunk that returns dispatch which returns axios call
+var reduxLogin = exports.reduxLogin = function reduxLogin(credentials) {
+    return function (dispatch) {
+        return _axios2.default.put('/api/auth/me', credentials).then(function (res) {
+            return res.data;
+        }).then(function (user) {
+            return dispatch(set(user));
+        }).catch(logErr);
+    };
+};
 
 /***/ })
 /******/ ]);

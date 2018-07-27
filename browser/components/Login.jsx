@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import{reduxLogin} from '../redux/currentUser';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -10,6 +11,7 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log('reduxLogin',reduxLogin)
     const { message } = this.props;
     return (
       <div className="signin-container">
@@ -65,6 +67,8 @@ class Login extends React.Component {
       email: email.value,
       password: password.value
     }
+
+    this.props.reactLogin(user)
     console.log(email, password)
     console.log(`${message} isn't implemented yet`, user);
   }
@@ -73,6 +77,13 @@ class Login extends React.Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = () => ({ message: 'Log in' });
-const mapDispatch = null;
+
+// const mapDispatch = dispatch =>({
+//   reactLogin: user => dispatch(reduxLogin(user))
+// });
+const mapDispatch ={
+  reactLogin: reduxLogin
+}
+
 
 export default connect(mapState, mapDispatch)(Login);

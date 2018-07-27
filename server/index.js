@@ -18,11 +18,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 /* "Responding" middleware (may send a response back to client) */
 app.use('/api', function (req, res, next) {
   if (!req.session.counter) req.session.counter = 0;
-  console.log('counter', ++req.session.counter);
+  console.log('COUNTER', ++req.session.counter);
   next();
 });
 app.use(function (req, res, next){
-  console.log('session', req.session);
+  console.log('WASSUP HELLO', req.session);
   next();
 })
 app.use('/api', require('./api'));

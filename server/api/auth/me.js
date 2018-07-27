@@ -11,6 +11,7 @@ router.put('/', (req, res, next)=>{
         if(user){
             req.session.userId = user.id
             req.session.cookie.expires = new Date(Date.now()+ hour)
+            
             res.json(user)  //we need some kind of respondse
         }
         else{
