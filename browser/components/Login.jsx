@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import{reduxLogin} from '../redux/currentUser';
+import {reduxLogin} from '../redux/currentUser';
+// import {browserHistory} from 'react-router';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -13,6 +14,8 @@ class Login extends React.Component {
   render() {
     console.log('reduxLogin',reduxLogin)
     const { message } = this.props;
+    console.log(this.props)
+    
     return (
       <div className="signin-container">
         <div className="buffer local">
@@ -69,8 +72,13 @@ class Login extends React.Component {
     }
 
     this.props.reactLogin(user)
+    .then(loggedInUser =>
+      this.props.history.push(`/users/${loggedInUser.id}`) 
+    )
+    .catch()
     console.log(email, password)
-    console.log(`${message} isn't implemented yet`, user);
+    console.log(`${message} isn't implemented yet`, user)
+
   }
 }
 

@@ -9,11 +9,8 @@ const SET = 'SET_CURRENT_USER'
 //take user credentials and return an object whos type is set and the user is equal to the current user
 export const set = user=> ({type:SET, user})
 
-
-
-
 // REDUCER 
-export default function reducer (currentUser = {}, action) {
+export default function reducer (currentUser = null, action) {
     switch (action.type) {
   
       case SET:
@@ -34,7 +31,26 @@ export const reduxLogin = credentials =>
     dispatch=>
     axios.put('/api/auth/me', credentials)
     .then(res=>res.data)
-    .then(user=>dispatch(set(user)))
+    .then(user=>{
+      dispatch(set(user))
+      return user
+      // .catch(logErr)
+    // we are now catching in the Login component because we want the thunked action creater to return user so that we can force a page
+    // change via routerhistory in the Login component
+    })
+
+export const retrieveLoggedInUser = credentials =>
+// console.log('HITTING RETRIEVE USER!!!!!!')
+    dispatch =>{
+    console.log('HITTING RETRIEVE USER!!!!!!')
+    axios.get('/api/auth/me')
+    .then(res=>res.data)
+    .then(user => dispatch(set(user)))
     .catch(logErr)
+    }
+export const reduxLogout = ()=>
+    dispatch=>
+    dispatch(set(null))
+    
 
 

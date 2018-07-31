@@ -14,6 +14,7 @@ import Footer from './Footer';
 
 import { fetchUsers } from '../redux/users';
 import { fetchStories } from '../redux/stories';
+import {retrieveLoggedInUser} from '../redux/currentUser';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -47,7 +48,8 @@ const mapState = null;
 const mapDispatch = dispatch => ({
   fetchInitialData: () => {
     dispatch(fetchUsers());
-    dispatch(fetchStories());
+		dispatch(fetchStories());
+		dispatch(retrieveLoggedInUser())
     // what other data might we want to fetch on app load?
   }
 });

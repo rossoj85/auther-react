@@ -2,6 +2,13 @@ const router = require('express').Router();
 const {User} = require('../../db/models');
 const HttpError = require('../../utils/HttpError');
 const hour = 360000;
+
+router.get ('/',(req,res,next)=>{
+    User.findById(req.session.userId)
+    .then(res.json.bind(res))
+    .catch(next)
+})
+
 router.put('/', (req, res, next)=>{
     const {email, password} = req.body
     User.findOne({

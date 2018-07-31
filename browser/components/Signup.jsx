@@ -59,7 +59,18 @@ class Signup extends React.Component {
 
   onSignupSubmit(event) {
     event.preventDefault();
+    const {email, password} = event.target; 
+    const user = {
+      email: email.value,
+      password: password.value
+    }
+    this.props.reactSignup(user)
+
+
+
+
     const { message } = this.props;
+    console.log('SIGNUP CLICKED')
     console.log(`${message} isn't implemented yet`);
   }
 }
