@@ -4,6 +4,7 @@ const path = require('path');
 const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const passport = require('passport')
 
 /* "Enhancing" middleware (does not send response, server-side effects only) */
 app.use(session({
@@ -11,6 +12,10 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(volleyball);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -25,6 +30,7 @@ app.use(function (req, res, next){
   console.log('WASSUP HELLO', req.session);
   next();
 })
+
 app.use('/api', require('./api'));
 
 

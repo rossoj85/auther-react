@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { addUser as reduxSignup} from '../redux/users'
+import {reduxLogin} from '../redux/currentUser';
+import { create } from 'domain';
 /* -----------------    COMPONENT     ------------------ */
 
 class Signup extends React.Component {
@@ -11,6 +13,7 @@ class Signup extends React.Component {
   }
 
   render() {
+    console.log('@#@#$@#$@# SIGNUP #!@#$@#!$@#!$', this.props.reactLogin)
     const { message } = this.props;
     return (
       <div className="signin-container">
@@ -46,7 +49,7 @@ class Signup extends React.Component {
           <p>
             <a
               target="_self"
-              href="/auth/google"
+              href="api/auth/google"
               className="btn btn-social btn-google">
               <i className="fa fa-google" />
               <span>{message} with Google</span>
@@ -65,9 +68,13 @@ class Signup extends React.Component {
       password: password.value
     }
     this.props.reactSignup(user)
-
-
-
+    .then(createdUser=>{
+      this.props.reactLogin(createdUser)
+      .then( loggedInUser =>
+        this.props.history.push(`/users/${loggedInUser.id}`)
+      )
+    })
+    .catch(console.error())
 
     const { message } = this.props;
     console.log('SIGNUP CLICKED')
@@ -78,6 +85,17 @@ class Signup extends React.Component {
 /* -----------------    CONTAINER     ------------------ */
 
 const mapState = () => ({ message: 'Sign up' });
-const mapDispatch = null;
+// const mapDispatch = (dispatch) =>({
+//     reactLogin: user => dispatch(reduxLogin(user)),
+//     reactSignup: user => dispatch(reduxSignup(user))
+//     // .then(createdUser=>{
+//     //   this.props.history.push(`/users/${createdUserId}`)
+//     // })
+//     // .catch()
+//   });
+const mapDispatch={
+  reactLogin: reduxLogin,
+  reactSignup: reduxSignup
+}
 
 export default connect(mapState, mapDispatch)(Signup);

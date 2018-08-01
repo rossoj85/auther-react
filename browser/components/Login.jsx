@@ -50,7 +50,7 @@ class Login extends React.Component {
           <p>
             <a
               target="_self"
-              href="/auth/google"
+              href="api/auth/google"
               className="btn btn-social btn-google">
               <i className="fa fa-google" />
               <span>{message} with Google</span>

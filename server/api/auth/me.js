@@ -27,5 +27,14 @@ router.put('/', (req, res, next)=>{
     })
     .catch(next)
 })
+
+router.delete('/',(req,res,next)=>{
+    console.log('SESSION BEFORE DESTROY', req.session)
+    req.session.destroy()
+    // we can also use:
+    // delete req.session.userId
+    console.log('SESSION AFTER DESTROY', req.session)
+ 
+})
  
 module.exports= router

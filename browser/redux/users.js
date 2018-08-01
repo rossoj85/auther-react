@@ -51,11 +51,18 @@ export const removeUser = id => dispatch => {
        .catch(err => console.error(`Removing user: ${id} unsuccesful`, err));
 };
 
-export const addUser = user => dispatch => {
+export const addUser = user => dispatch => 
   axios.post('/api/users', user)
-       .then(res => dispatch(create(res.data)))
-       .catch(err => console.error(`Creating user: ${user} unsuccesful`, err));
-};
+        .then(res=>res.data)
+        .then(createdUser => {
+         dispatch(create(createdUser))
+         return createdUser
+        })
+      //  .catch(err => console.error(`Creating user: ${user} unsuccesful`, err));
+      //we will catch for errors in the signup component
+      // WE CANNOT BRACKET OUT THE FUNCTION HERE
+
+;
 
 export const updateUser = (id, user) => dispatch => {
   axios.put(`/api/users/${id}`, user)

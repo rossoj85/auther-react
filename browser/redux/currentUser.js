@@ -8,7 +8,7 @@ const SET = 'SET_CURRENT_USER'
 // ACTIONS 
 //take user credentials and return an object whos type is set and the user is equal to the current user
 export const set = user=> ({type:SET, user})
-
+export const logout = ()=>({type:LOGOUT})
 // REDUCER 
 export default function reducer (currentUser = null, action) {
     switch (action.type) {
@@ -48,9 +48,10 @@ export const retrieveLoggedInUser = credentials =>
     .then(user => dispatch(set(user)))
     .catch(logErr)
     }
-export const reduxLogout = ()=>
-    dispatch=>
-    dispatch(set(null))
-    
+export const reduxLogout = () =>
+    dispatch=>{
+      axios.delete('/api/auth/me')
+      dispatch(set(null))
+    }
 
 
