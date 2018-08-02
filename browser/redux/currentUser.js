@@ -45,7 +45,11 @@ export const retrieveLoggedInUser = credentials =>
     console.log('HITTING RETRIEVE USER!!!!!!')
     axios.get('/api/auth/me')
     .then(res=>res.data)
-    .then(user => dispatch(set(user)))
+    
+    .then(user => {
+      console.log('INSIDE RETRIEVE USER USER!!!', user)
+      dispatch(set(user))
+    })
     .catch(logErr)
     }
 export const reduxLogout = () =>

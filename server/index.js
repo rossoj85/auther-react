@@ -5,6 +5,7 @@ const volleyball = require('volleyball');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport')
+const {User} = require('./db/models');
 
 /* "Enhancing" middleware (does not send response, server-side effects only) */
 app.use(session({
@@ -15,6 +16,15 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.serializeUser((user,done)=>{
+  done(null,user.id)
+})
+passport.deserializeUser((id,done)=>{
+  User.findById(id)
+  .then(user=>done(null,user))
+  .catch(done)
+})
 
 app.use(volleyball);
 app.use(bodyParser.json());
@@ -27,6 +37,7 @@ app.use('/api', function (req, res, next) {
   next();
 });
 app.use(function (req, res, next){
+  console.log('passport user: ', req.user)
   console.log('WASSUP HELLO', req.session);
   next();
 })

@@ -1102,7 +1102,7 @@ module.exports = invariant;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.reduxLogout = exports.retrieveLoggedInUser = exports.reduxLogin = exports.logout = exports.set = undefined;
 exports.default = reducer;
@@ -1121,24 +1121,24 @@ var SET = 'SET_CURRENT_USER';
 // ACTIONS 
 //take user credentials and return an object whos type is set and the user is equal to the current user
 var set = exports.set = function set(user) {
-    return { type: SET, user: user };
+  return { type: SET, user: user };
 };
 var logout = exports.logout = function logout() {
-    return { type: LOGOUT };
+  return { type: LOGOUT };
 };
 // REDUCER 
 function reducer() {
-    var currentUser = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
+  var currentUser = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments[1];
 
-    switch (action.type) {
+  switch (action.type) {
 
-        case SET:
-            return action.user;
+    case SET:
+      return action.user;
 
-        default:
-            return currentUser;
-    }
+    default:
+      return currentUser;
+  }
 }
 
 //THUNKED  ACTION CREATORS
@@ -1146,37 +1146,38 @@ function reducer() {
 var logErr = console.error.bind(console);
 //returns a thunk that returns dispatch which returns axios call
 var reduxLogin = exports.reduxLogin = function reduxLogin(credentials) {
-    return function (dispatch) {
-        return _axios2.default.put('/api/auth/me', credentials).then(function (res) {
-            return res.data;
-        }).then(function (user) {
-            dispatch(set(user));
-            return user;
-            // .catch(logErr)
-            // we are now catching in the Login component because we want the thunked action creater to return user so that we can force a page
-            // change via routerhistory in the Login component
-        });
-    };
+  return function (dispatch) {
+    return _axios2.default.put('/api/auth/me', credentials).then(function (res) {
+      return res.data;
+    }).then(function (user) {
+      dispatch(set(user));
+      return user;
+      // .catch(logErr)
+      // we are now catching in the Login component because we want the thunked action creater to return user so that we can force a page
+      // change via routerhistory in the Login component
+    });
+  };
 };
 
 var retrieveLoggedInUser = exports.retrieveLoggedInUser = function retrieveLoggedInUser(credentials) {
-    return (
-        // console.log('HITTING RETRIEVE USER!!!!!!')
-        function (dispatch) {
-            console.log('HITTING RETRIEVE USER!!!!!!');
-            _axios2.default.get('/api/auth/me').then(function (res) {
-                return res.data;
-            }).then(function (user) {
-                return dispatch(set(user));
-            }).catch(logErr);
-        }
-    );
+  return (
+    // console.log('HITTING RETRIEVE USER!!!!!!')
+    function (dispatch) {
+      console.log('HITTING RETRIEVE USER!!!!!!');
+      _axios2.default.get('/api/auth/me').then(function (res) {
+        return res.data;
+      }).then(function (user) {
+        console.log('INSIDE RETRIEVE USER USER!!!', user);
+        dispatch(set(user));
+      }).catch(logErr);
+    }
+  );
 };
 var reduxLogout = exports.reduxLogout = function reduxLogout() {
-    return function (dispatch) {
-        _axios2.default.delete('/api/auth/me');
-        dispatch(set(null));
-    };
+  return function (dispatch) {
+    _axios2.default.delete('/api/auth/me');
+    dispatch(set(null));
+  };
 };
 
 /***/ }),
@@ -48149,6 +48150,16 @@ var Navbar = function (_React$Component) {
                   _reactRouterDom.NavLink,
                   { to: '/stories', activeClassName: 'active' },
                   'stories'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                null,
+                this.props.currentUser && _react2.default.createElement(
+                  'p',
+                  null,
+                  'WELCOME ',
+                  this.props.currentUser.name
                 )
               )
             ),

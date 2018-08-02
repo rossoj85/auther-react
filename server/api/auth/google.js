@@ -4,6 +4,7 @@ const HttpError = require('../../utils/HttpError');
 const passport = require('passport')
 const googleStrategy = require('passport-google-oauth').OAuth2Strategy
 
+
 passport.use(
     new googleStrategy({
         clientID: '660220876490-srsc8gpprc0kfcg919m0fp4lt84otl4u.apps.googleusercontent.com',
@@ -17,7 +18,8 @@ passport.use(
             //use it for our own purposes
                 //find or create a user in our own database
             //call done to tell passport here is the user to log in as'
-            console.log('---', 'in verification callback', profile, '---');
+            // console.log('---------------USER IN GOOGLE', User)
+            // console.log('---', 'in verification callback', profile, '---');
             var info ={
                 //these are the fields on our user model
                 name: profile.displayName,
