@@ -31,6 +31,7 @@ passport.use(
                 //if the persons id(which is the same as their gogle id) is not in db, we use 'defaults' to set up thier profile in our app
                 defaults: info,
             })
+            //all that spread does is flatten an array
             .spread(user=>{
                 done(null, user)
             })
