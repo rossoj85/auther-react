@@ -29402,6 +29402,21 @@ var Login = function (_React$Component) {
                 message,
                 ' with Google'
               )
+            ),
+            _react2.default.createElement(
+              'a',
+              {
+                style: { 'marginTop': '15px' },
+                target: '_self',
+                href: 'api/auth/facebook',
+                className: 'btn btn-social btn-facebook' },
+              _react2.default.createElement('i', { className: 'fa fa-facebook' }),
+              _react2.default.createElement(
+                'span',
+                null,
+                message,
+                ' with Facebook'
+              )
             )
           )
         )
@@ -29580,6 +29595,21 @@ var Signup = function (_React$Component) {
                 null,
                 message,
                 ' with Google'
+              )
+            ),
+            _react2.default.createElement(
+              'a',
+              {
+                style: { 'marginTop': '15px' },
+                target: '_self',
+                href: 'api/auth/facebook',
+                className: 'btn btn-social btn-facebook' },
+              _react2.default.createElement('i', { className: 'fa fa-facebook' }),
+              _react2.default.createElement(
+                'span',
+                null,
+                message,
+                ' with Facebook'
               )
             )
           )

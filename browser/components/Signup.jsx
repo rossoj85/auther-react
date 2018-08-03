@@ -54,6 +54,14 @@ class Signup extends React.Component {
               <i className="fa fa-google" />
               <span>{message} with Google</span>
             </a>
+             <a
+            style={{'marginTop': '15px'}}
+            target="_self"
+            href="api/auth/facebook"
+            className="btn btn-social btn-facebook">
+            <i className="fa fa-facebook" />
+            <span>{message} with Facebook</span>
+          </a>
           </p>
         </div>
       </div>

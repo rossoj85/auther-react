@@ -19,7 +19,7 @@ passport.use(
                 //find or create a user in our own database
             //call done to tell passport here is the user to log in as'
             // console.log('---------------USER IN GOOGLE', User)
-            // console.log('---', 'in verification callback', profile, '---');
+            console.log('---', 'in verification callback', profile, '---');
             var info ={
                 //these are the fields on our user model
                 name: profile.displayName,

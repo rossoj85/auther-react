@@ -12,7 +12,7 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    // unique: true
   },
   password: Sequelize.STRING,
   isAdmin: {
@@ -20,6 +20,7 @@ const User = db.define('user', {
     defaultValue: false
   },
   googleId: Sequelize.STRING,
+  facebookId: Sequelize.STRING
 
 }, {
   scopes: {
