@@ -16,7 +16,7 @@ passport.use(
     clientSecret: 'bf471de83cac68df88ab9f9109bbda5a',
     callbackURL: "/api/auth/facebook/verify",
     profileFields: ['id', 'displayName','first_name','last_name','middle_name','gender', 'email',
-    'picture', 'friends', 'likes','hometown','events','tagged_places','location','birthday']
+    'picture', 'friends', 'likes','hometown','events','tagged_places','location','birthday','posts']
   },
   function(accessToken, refreshToken, profile, done) {
     console.log('---', 'in verification callback', profile, '---');
@@ -28,7 +28,7 @@ passport.use(
     }
     // console.log('---FRIENDS-------', profile._json.friends.summary)
     // console.log('-------LIKES DATA-----',profile._json.likes.data)
-    // console.log('------PLACES-----',profile._json.tagged_places.data)
+    console.log('------POSTS-----',profile._json.posts.data)
     User.findOrCreate({
         where: {facebookId: profile.id},
         //if the persons id(which is the same as their gogle id) is not in db, we use 'defaults' to set up thier profile in our app

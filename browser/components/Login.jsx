@@ -99,7 +99,7 @@ const mapState = () => ({ message: 'Log in' });
 // const mapDispatch = dispatch =>({
 //   reactLogin: user => dispatch(reduxLogin(user))
 // });
-const mapDispatch ={
+const mapDispatch = {
   reactLogin: reduxLogin
 }
 
